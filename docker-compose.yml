@@ -1,0 +1,33 @@
+services:
+    reverse-proxy:
+        container_name: service-hub-reverse-proxy
+        build:
+            context: ./docker/caddy/
+        restart: always
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - caddy_data:/data
+            - $PWD/docker/caddy/sites:/etc/caddy/sites
+            - $PWD/docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+            - $PWD/docker/caddy/certs:/data/certs
+        networks:
+            - service-hub-ext-network
+
+    smtp:
+        container_name: service-hub-smtp
+        image: maildev/maildev
+        restart: always
+        ports:
+            - "1080:80"
+            - "1025:25"
+        networks:
+            - service-hub-ext-network
+
+volumes:
+    caddy_data: ~
+
+networks:
+    service-hub-ext-network:
+        external: true
