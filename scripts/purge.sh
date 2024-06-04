@@ -7,4 +7,4 @@ docker rm $(docker stop $(docker ps -a --filter name="service-hub-" --format="{{
 docker image prune -a -f
 
 # Remove unused docker volumes
-docker volume prune -f
+docker volume prune -a -f
