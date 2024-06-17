@@ -15,11 +15,11 @@ for container_and_image in $(echo "$containers_and_images"); do
     # Remove all docker containers with name starting with 'service-hub-'
     docker rm $(docker stop "$container") --volumes
 
-    # If possible, remove the unused docking image ( service hub related )
+    # If possible, remove the unused docker image ( service hub related )
     docker rmi "$image"
 done
 
-# If possible, remove the unused docking volume ( service hub related )
+# If possible, remove the unused docker volume ( service hub related )
 for volume in $(echo "$volumes"); do
     docker volume rm "$volume"
 done
